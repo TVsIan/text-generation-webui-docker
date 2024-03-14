@@ -147,8 +147,9 @@ FROM run_base AS base-nvidia
 COPY --from=app_nvidia $VIRTUAL_ENV $VIRTUAL_ENV
 # Variant parameters
 RUN echo "Nvidia Base" > /variant.txt
+ENV GPU_CHOICE="NVIDIA"
 ENV EXTRA_LAUNCH_ARGS=""
-CMD ["python3", "/app/server.py"]
+CMD ["/app/start_linux.sh"]
 
 # Extended
 FROM run_base AS default-nvidia
@@ -156,8 +157,9 @@ FROM run_base AS default-nvidia
 COPY --from=app_nvidia_x $VIRTUAL_ENV $VIRTUAL_ENV
 # Variant parameters
 RUN echo "Nvidia Extended" > /variant.txt
+ENV GPU_CHOICE="NVIDIA"
 ENV EXTRA_LAUNCH_ARGS=""
-CMD ["python3", "/app/server.py"]
+CMD ["/app/start_linux.sh"]
 
 
 # ROCM
@@ -167,8 +169,9 @@ FROM run_base AS base-rocm
 COPY --from=app_rocm $VIRTUAL_ENV $VIRTUAL_ENV
 # Variant parameters
 RUN echo "ROCM Base" > /variant.txt
+ENV GPU_CHOICE="AMD"
 ENV EXTRA_LAUNCH_ARGS=""
-CMD ["python3", "/app/server.py"]
+CMD ["/app/start_linux.sh"]
 
 # Extended
 FROM run_base AS default-rocm
@@ -176,8 +179,9 @@ FROM run_base AS default-rocm
 COPY --from=app_rocm_x $VIRTUAL_ENV $VIRTUAL_ENV
 # Variant parameters
 RUN echo "ROCM Extended" > /variant.txt
+ENV GPU_CHOICE="AMD"
 ENV EXTRA_LAUNCH_ARGS=""
-CMD ["python3", "/app/server.py"]
+CMD ["/app/start_linux.sh"]
 
 
 # ARC
@@ -187,8 +191,9 @@ FROM run_base AS base-arc
 COPY --from=app_arc $VIRTUAL_ENV $VIRTUAL_ENV
 # Variant parameters
 RUN echo "ARC Base" > /variant.txt
+ENV GPU_CHOICE="INTEL"
 ENV EXTRA_LAUNCH_ARGS=""
-CMD ["python3", "/app/server.py"]
+CMD ["/app/start_linux.sh"]
 
 # Extended
 FROM run_base AS default-arc
@@ -196,8 +201,9 @@ FROM run_base AS default-arc
 COPY --from=app_arc_x $VIRTUAL_ENV $VIRTUAL_ENV
 # Variant parameters
 RUN echo "ARC Extended" > /variant.txt
+ENV GPU_CHOICE="INTEL"
 ENV EXTRA_LAUNCH_ARGS=""
-CMD ["python3", "/app/server.py"]
+CMD ["/app/start_linux.sh"]
 
 
 # CPU
@@ -207,8 +213,9 @@ FROM run_base AS base-cpu
 COPY --from=app_cpu $VIRTUAL_ENV $VIRTUAL_ENV
 # Variant parameters
 RUN echo "CPU Base" > /variant.txt
+ENV GPU_CHOICE="NONE"
 ENV EXTRA_LAUNCH_ARGS=""
-CMD ["python3", "/app/server.py"]
+CMD ["/app/start_linux.sh"]
 
 # Extended
 FROM run_base AS default-cpu
@@ -216,5 +223,6 @@ FROM run_base AS default-cpu
 COPY --from=app_cpu_x $VIRTUAL_ENV $VIRTUAL_ENV
 # Variant parameters
 RUN echo "CPU Extended" > /variant.txt
+ENV GPU_CHOICE="NONE"
 ENV EXTRA_LAUNCH_ARGS=""
-CMD ["python3", "/app/server.py"]
+CMD ["/app/start_linux.sh"]
